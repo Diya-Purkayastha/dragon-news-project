@@ -5,6 +5,7 @@ import { AuthContext } from '../provider/AuthProvider';
 
 const Navbar = () => {
     const {user, logOut} = use(AuthContext);
+  
     const handleLogout = () =>{
         logOut()
         .then(() => {
@@ -25,7 +26,7 @@ const Navbar = () => {
                 <NavLink to='/career'> Career</NavLink>
             </div>
             <div className="login-btn flex gap-5">
-                <img src={userimg} alt="" />
+                <img className='w-12 rounded-full' src={`${user ? user.photoURL : userimg}`} alt="" />
                 {
                     user ? <button onClick={handleLogout} className='btn btn-primary'>Log Out</button> :  <Link to='/auth/login' className='btn btn-primary px-10'>Login</Link>
                 }

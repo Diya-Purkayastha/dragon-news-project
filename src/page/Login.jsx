@@ -1,11 +1,12 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Login = () => {
     const {login, setUser } = use(AuthContext)
     const location = useLocation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState(" ")
 
         const handleLogin = e =>{
             e.preventDefault();
@@ -20,8 +21,8 @@ const Login = () => {
                 navigate(`${location.state ? location.state : '/'}`);
               })
               .catch((error) => {
-                const errorMessage = error.message;
-                console.log(errorMessage);
+                const errorMessage = error.code;
+                setErrorMessage(errorMessage)
               });
 
         }
@@ -34,11 +35,14 @@ const Login = () => {
                     <fieldset className="fieldset">
                         {/* email */}
                         <label className="label">Email</label>
-                        <input type="email" className="input" placeholder="Email" name='email' />
+                        <input type="email" className="input" placeholder="Email" name='email' required/>
                         {/* password */}
                         <label className="label">Password</label>
-                        <input type="password" className="input" placeholder="Password" name='password'/>
+                        <input type="password" className="input" placeholder="Password" name='password' required/>
                         <div><a className="link link-hover">Forgot password?</a></div>
+                        {
+                            errorMessage && <p className='text-sm text-red-500'>{errorMessage}</p>
+                        }
                         <button type='submit' className="btn btn-neutral mt-4">Login</button>
                     </fieldset>
                     <p className='text-accent text-center font-semibold mt-5'>Don't Have An Account ? <Link to='/auth/register' className='text-secondary underline'>Register</Link> </p>

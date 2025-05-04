@@ -1,14 +1,22 @@
 
-import React, { use } from 'react';
-import { Link } from 'react-router';
+import React, { use, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Register = () => {
-    const {createUser, setUser} = use(AuthContext)
+    const {createUser, setUser, updateUser} = use(AuthContext) 
+    const [nameError, setNameError] = useState(" ")
+    const navigate = useNavigate()
 
     const handleRegister = e =>{
         e.preventDefault();
         const name = e.target.name.value;
+        if(name.length < 5){
+            setNameError('name should be more then 5 characters');
+            return;
+        }else{
+            setNameError('')
+        }
         const photoURL = e.target.photoURL.value;
         const email = e.target.email.value;
         const password= e.target.password.value;
@@ -18,7 +26,14 @@ const Register = () => {
         .then(result => {
             const user = result.user;
             // console.log(user);
-            setUser(user)
+            updateUser({displayName: name , photoURL: photoURL}).then(()=>{
+                setUser({...user,displayName: name , photoURL: photoURL});
+                navigate('/')
+            }).catch((error) => {
+                console.log(error);
+                setUser(user)
+              });
+         
         })
         .catch((error) => {
             
@@ -37,6 +52,9 @@ const Register = () => {
                          {/* name */}
                          <label className="label">Name</label>
                         <input type="text" className="input" placeholder="Name" name='name' required />
+                        {
+                            nameError && <p className='text-sm text-red-500'>{nameError}</p>
+                        }
                          {/* photo url */}
                          <label className="label">Photo URL</label>
                         <input type="text" className="input" placeholder="Photo URL" name='photoURL' required />
