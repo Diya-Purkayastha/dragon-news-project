@@ -49,7 +49,7 @@ const Register = () => {
                       
                         <button type='submit' className="btn btn-neutral mt-4">Register</button>
                     </fieldset>
-                    <p className='text-accent text-center font-semibold mt-5'>Already Have An Account ? <Link to='/auth/register' className='text-secondary underline'>Login</Link> </p>
+                    <p className='text-accent text-center font-semibold mt-5'>Already Have An Account ? <Link to='/auth/login' className='text-secondary underline'>Login</Link> </p>
                 </form>
             </div>
         </div>
