@@ -15,7 +15,7 @@ const Login = () => {
                         <div><a className="link link-hover">Forgot password?</a></div>
                         <button className="btn btn-neutral mt-4">Login</button>
                     </fieldset>
-                    <p className='text-accent text-center'>Don't Have An Account ? <Link to='/auth/register' className='text-secondary underline'>Register</Link> </p>
+                    <p className='text-accent text-center font-semibold mt-5'>Don't Have An Account ? <Link to='/auth/register' className='text-secondary underline'>Register</Link> </p>
                 </div>
             </div>
         </div>
